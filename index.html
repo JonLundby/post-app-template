@@ -1,46 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="app.css" />
     <title>Post App</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>Post App with Firebase REST API</h1>
-        <button id="btn-create-post">Create New Post</button>
+      <h1>Post App with Firebase REST API</h1>
+      <button id="btn-create-post">Create New Post</button>
+      <input type="search" id="input-search" placeholder="search by title...">
     </header>
 
-
-
     <main>
+      <section>
+        <h2>Posts</h2>
+        <section id="posts" class="grid-container"></section>
+      </section>
 
-        <section>
-            <h2>Posts</h2>
-            <section id="posts" class="grid-container"></section>
-        </section>
-
-        <section>
-            <h2>Users</h2>
-            <section id="users" class="grid-container"></section>
-        </section>
+      <section>
+        <h2>Users</h2>
+        <section id="users" class="grid-container"></section>
+      </section>
     </main>
 
     <!-- dialog - create new post -->
-    <!-- to do  -->
+    <dialog id="create-post-dialog">
+      <h2>Create new post</h2>
+      <form action="" id="create-post-form">
+        <label for="new-image">Image:</label>
+        <input type="text" id="new-image" name="image" placeholder="type in url" />
+
+        <label for="new-titel">Titel:</label>
+        <input type="text" id="new-titel" name="title" placeholder="type titel" />
+
+        <label for="new-description">body:</label>
+        <input type="text" id="new-body" name="body" placeholder="type a description" />
+
+        <button>Create Post</button>
+      </form>
+    </dialog>
 
     <!-- dialog - update post -->
-    <!-- to do  -->
-
+    <dialog id="update-post-dialog">
+      <h2>Update Post</h2>
+      <form action="" id="update-post-form">
+        <label for="update-title">Title:</label>
+        <input type="text" name="title" id="update-title" placeholder="type a new title..." value="" />
+        <label for="body">Description</label>
+        <input type="text" name="body" id="update-body" placeholder="type a new description text..." value=""/>
+        <label for="update-image">Image:</label>
+        <input type="text" name="image" id="update-image" placeholder="type a new url address..." value=""/>
+        <button>Update</button>
+      </form>
+    </dialog>
 
     <!-- dialog - delete post -->
-    <!-- to do  -->
+    <dialog id="dialog-delete-post">
+      <h2>Are you sure you want to delete?!</h2>
+      <p id="dialog-delete-title"></p>
+      <form action="" method="dialog" id="form-delete-post">
+        <button type="button" class="btn-cancel">Cancel</button>
+        <button>Delete</button>
+      </form>
+    </dialog>
 
     <script src="app.js"></script>
-</body>
-
+  </body>
 </html>
