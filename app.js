@@ -17,17 +17,48 @@ function initApp() {
 
   document.querySelector("#form-delete-post").addEventListener("submit", deletePostClicked);
   document.querySelector(".btn-cancel").addEventListener("click", closeDialogDelete);
-  
+
   document.querySelector("#update-post-form").addEventListener("submit", updatePostClicked);
 
   document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
   document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
+
+  document.querySelector("#sort-by").addEventListener("change", sortByChanged);
 }
 
 // ============== events ============== //
 
+function sortByChanged(event) {
+  const value = event.target.value;
+
+  if (value === "none") {
+    console.log("sorting by none...");
+    updatePostsGrid();
+    //showPosts(posts);
+  } else if (value === "title") {
+    //console.log("sorting by title...");
+    posts.sort(compareBytitle);
+    showPosts(posts);
+  } else if (value === "body") {
+    console.log("sorting by desciption...");
+    posts.sort(compareByBody);
+    showPosts(posts);
+  }
+}
+
+function compareBytitle(post1, post2) {
+  // console.log("title selected");
+  return post1.title.localeCompare(post2.title);
+}
+
+function compareByBody(post1, post2) {
+  // console.log("description selected");
+  const resultByBody = post1.body.localeCompare(post2.body);
+  return resultByBody;
+}
+
 function inputSearchChanged() {
-  const value = this.value // alternatively use "event.target.value"
+  const value = this.value; // alternatively use "event.target.value"
   const postsToShow = searchPosts(value);
   showPosts(postsToShow);
 }
@@ -35,7 +66,7 @@ function inputSearchChanged() {
 function searchPosts(searchValue) {
   searchValue = searchValue.toLowerCase();
 
-  const results = posts.filter(checkTitle)
+  const results = posts.filter(checkTitle);
 
   function checkTitle(post) {
     const title = post.title.toLowerCase();
@@ -53,7 +84,7 @@ function showCreatePostDialog(event) {
 }
 
 function createPostClicked(event) {
-  const form = event.target; //or use "this"
+  const form = event.target;
 
   const title = form.title.value;
   const image = form.image.value;
@@ -65,13 +96,14 @@ function createPostClicked(event) {
   document.querySelector("#create-post-dialog").close();
 }
 
-function updatePostClicked() {
-  const form = this;
+function updatePostClicked(event) {
+  event.preventDefault();
+  const form = event.target;
 
   const title = form.title.value;
   const body = form.body.value;
   const image = form.image.value;
-  const id = form.setAttribute("data-id");
+  const id = form.getAttribute("data-id");
 
   updatePost(id, title, body, image);
   document.querySelector("#update-post-dialog").close();
@@ -141,7 +173,7 @@ function showPost(postObject) {
 
   // called when update button is clicked
   function updateClicked() {
-    console.log("Delete button clicked");
+    console.log("Update button clicked");
     // to do
     //refering to input name attribute
     document.querySelector("#update-post-form").title.value = postObject.title;
@@ -183,11 +215,11 @@ async function createPost(title, image, body) {
 // Update an existing post - HTTP Method: DELETE
 async function deletePost(id) {
   // DELETE fetch request
-  const respons = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
+  const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
 
   // check if response is ok - if the response is successful
   // update the post grid to display posts
-  if (respons.ok) {
+  if (response.ok) {
     console.log("post was succesfully deleted!");
     updatePostsGrid();
   }
@@ -196,8 +228,8 @@ async function deletePost(id) {
 // Delete an existing post - HTTP Method: PUT
 async function updatePost(id, title, body, image) {
   // post update to update
-  const postToUpdate = {title, body, image}
-  
+  const postToUpdate = { title, body, image };
+
   // convert the JS object to JSON string
   const postToUpdateJson = JSON.stringify(postToUpdate);
 
@@ -208,7 +240,7 @@ async function updatePost(id, title, body, image) {
   if (response.ok) {
     console.log("post updated succesfully!");
   }
-  
+
   // update the post grid to display all posts and the new post
   updatePostsGrid();
 }

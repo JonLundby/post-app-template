@@ -12,8 +12,15 @@
   <body>
     <header>
       <h1>Post App with Firebase REST API</h1>
-      <button id="btn-create-post">Create New Post</button>
-      <input type="search" id="input-search" placeholder="search by title...">
+      <section class="sorting-container">
+        <button id="btn-create-post">Create New Post</button>
+        <input type="search" id="input-search" placeholder="search by title...">
+        <select name="sort-by" id="sort-by">
+          <option value="none">None</option>
+          <option value="title">Title</option>
+          <option value="body">Description</option>
+        </select>
+      </section>
     </header>
 
     <main>
@@ -50,11 +57,14 @@
       <h2>Update Post</h2>
       <form action="" id="update-post-form">
         <label for="update-title">Title:</label>
-        <input type="text" name="title" id="update-title" placeholder="type a new title..." value="" />
+        <input type="text" name="title" id="update-title" placeholder="type a new title..."/>
+        
         <label for="body">Description</label>
-        <input type="text" name="body" id="update-body" placeholder="type a new description text..." value=""/>
+        <input type="text" name="body" id="update-body" placeholder="type a new description text..."/>
+        
         <label for="update-image">Image:</label>
-        <input type="text" name="image" id="update-image" placeholder="type a new url address..." value=""/>
+        <input type="text" name="image" id="update-image" placeholder="type a new url address..."/>
+        
         <button>Update</button>
       </form>
     </dialog>

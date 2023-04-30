@@ -267,3 +267,8 @@ dialog p {
 .tools-grid label {
     max-width: 350px;
 }
+
+.sorting-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
